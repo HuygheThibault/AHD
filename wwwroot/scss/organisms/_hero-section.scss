@@ -1,0 +1,111 @@
+.hero {
+    position: relative;
+    width: 100%;
+    height: 100vh; // Full height to showcase the hero image
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+
+    &__image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1; // Ensure the image stays behind the content
+
+        .bg-wrapper {
+            width: 100%;
+            height: 100%;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover; // Make sure the image fully covers the section
+                object-position: center;
+                filter: brightness(70%); // Darken the image for better text contrast
+            }
+        }
+    }
+
+    &__content {
+        position: relative;
+        z-index: 1; // Ensure content is above the image
+        background: rgba(0, 0, 0, 0.5); // Semi-transparent black background for readability
+        padding: 3rem;
+        border-radius: 12px;
+        max-width: 700px;
+        text-align: center;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); // Add shadow to lift the content
+        margin-top: 80px; // Space from navbar on mobile
+
+        &__inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+
+            h1 {
+                font-size: 2.5rem;
+                font-weight: 700;
+                color: $white-color;
+
+                @media (min-width: $breakpoint-tablet) {
+                    font-size: 3rem;
+                }
+
+                @media (min-width: $breakpoint-desktop) {
+                    font-size: 3.5rem;
+                }
+            }
+
+            p {
+                font-size: 1.25rem;
+                line-height: 1.6;
+                color: $white-color;
+
+                @media (min-width: $breakpoint-tablet) {
+                    font-size: 1.5rem;
+                }
+
+                @media (min-width: $breakpoint-desktop) {
+                    font-size: 1.75rem;
+                }
+            }
+
+            button {
+                padding: 0.75rem 1.5rem;
+                font-size: 1rem;
+                background-color: $primary-color;
+                border: none;
+                border-radius: 6px;
+                color: $white-color;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+
+                &:hover {
+                    background-color: $secondary-color; // On hover, switch to secondary color
+                }
+            }
+        }
+    }
+    // Responsive design for mobile devices
+    @media (max-width: $breakpoint-mobile) {
+        height: auto; // Adjust height for smaller screens
+        padding: 1rem;
+
+        &__content {
+            padding: 2rem;
+            margin-top: 60px; // Reduced margin for better spacing on mobile
+        }
+
+        h1 {
+            font-size: 2rem;
+        }
+
+        p {
+            font-size: 1rem;
+        }
+    }
+}

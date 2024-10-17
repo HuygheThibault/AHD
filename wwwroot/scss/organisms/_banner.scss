@@ -1,0 +1,124 @@
+.leader-banner {
+    display: flex;
+    align-items: center; // Vertically center the image and text together
+    justify-content: center; // Horizontally center content inside the banner
+    padding: 3rem 2rem;
+    background-color: $white-color;
+    border-radius: 16px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+
+    &:hover {
+        transform: translateY(-5px); // Slight hover effect to lift the element
+        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15); // Increased shadow on hover for more depth
+    }
+
+    &__image {
+        flex: 0 0 150px; // Fix width for the image
+        height: 150px; // Fix height for the image
+        margin-right: 2rem; // Space between image and text
+        border-radius: 50%; // Circular image
+        overflow: hidden;
+        transition: transform 0.3s ease-in-out;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%; // Ensure circular shape
+            transition: transform 0.3s ease;
+
+            &:hover {
+                transform: scale(1.05); // Slight zoom on hover
+            }
+        }
+    }
+
+    &__content {
+        flex: 1; // Take the remaining space for the content
+        display: flex;
+        flex-direction: column;
+        justify-content: center; // Vertically center the text content
+        align-items: flex-start; // Align the text content to the left
+        font-family: $font-family;
+        text-align: left; // Ensure text is aligned left
+
+        h2 {
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+            color: $heading-color; // Darker, professional heading
+            font-weight: 600;
+
+            @media (min-width: $breakpoint-tablet) {
+                font-size: 2rem;
+            }
+        }
+
+        p {
+            font-size: 1rem;
+            line-height: $line-height;
+            color: $text-color; // Standard text color
+            margin: 0;
+
+            &:first-of-type {
+                font-size: 1.125rem;
+                font-weight: 500;
+                color: $primary-color; // Primary color for title
+
+                @media (min-width: $breakpoint-tablet) {
+                    font-size: 1.25rem;
+                }
+            }
+
+            @media (min-width: $breakpoint-tablet) {
+                font-size: 1.125rem;
+            }
+        }
+    }
+    // Media Query for responsive adjustments
+    @media screen and (max-width: $breakpoint-tablet) {
+        flex-direction: column; // Stack image and text vertically on smaller screens
+        text-align: center; // Center text for smaller screens
+        padding: 2rem 1.5rem;
+
+        &__image {
+            margin-right: 0; // Remove spacing when stacked vertically
+            margin-bottom: 1.5rem;
+            width: 120px;
+            height: 120px; // Adjust image size for tablets and smaller screens
+        }
+
+        &__content {
+            align-items: center; // Center text for smaller screens
+            text-align: center; // Center text alignment
+
+            h2 {
+                font-size: 1.75rem;
+            }
+
+            p {
+                font-size: 1rem;
+            }
+        }
+    }
+    // Further adjustments for mobile screens
+    @media screen and (max-width: $breakpoint-mobile) {
+        padding: 1.5rem 1rem;
+
+        &__image {
+            margin-bottom: 1rem;
+            width: 100px;
+            height: 100px; // Adjust image size for small mobile screens
+        }
+
+        &__content {
+            h2 {
+                font-size: 1.375rem;
+            }
+
+            p {
+                font-size: 0.875rem;
+            }
+        }
+    }
+}

@@ -1,0 +1,23 @@
+.footer {
+    padding: 2rem;
+    background-color: $dark-color;
+    color: white;
+    text-align: center;
+
+    p {
+        margin: 0;
+        font-size: 1rem;
+    }
+
+    @media (min-width: $breakpoint-tablet) {
+        padding: 3rem 0;
+    }
+
+    @media (min-width: $breakpoint-desktop) {
+        padding: 4rem 0;
+
+        p {
+            font-size: 1.125rem;
+        }
+    }
+}

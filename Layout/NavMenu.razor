@@ -1,0 +1,29 @@
+﻿<nav class="navbar">
+    <div class="navbar__container">
+        <div class="navbar__logo">
+            <a href="/">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBgH3a6PqYcSAJ-lPXOTR2PPYldv_cY1JWaw&s" alt="Company Logo">
+            </a>
+        </div>
+        <div class="navbar__toggle" @onclick="ToggleMenu">
+            &#9776; <!-- Hamburger Icon -->
+        </div>
+        <div class="navbar__menu @(isMenuOpen ? "active" : "")" id="navbarMenu">
+            <div class="close-button" @onclick="ToggleMenu">&times;</div> <!-- Close Button -->
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/services">Services</a></li>
+                <li><a href="/contact">Contact</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+@code {
+    private bool isMenuOpen = false;
+
+    private void ToggleMenu()
+    {
+        isMenuOpen = !isMenuOpen;
+    }
+}

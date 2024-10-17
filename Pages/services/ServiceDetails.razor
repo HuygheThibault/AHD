@@ -1,0 +1,23 @@
+﻿@using AHD.Models
+@if (Service != null)
+{
+    <div class="services__details">
+        <div class="details__image">
+            <img src="@Service.DetailsImageUrl" alt="@Service.Name" />
+        </div>
+        <div class="details__content">
+            <h4>@Service.Name</h4>
+            <p>@Service.Description</p>
+            <div class="details__links">
+                @foreach (var link in Service.Links)
+                {
+                    <a class="details__link" href="@link.Url">@link.Text</a>
+                }
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public Service Service { get; set; }
+}

@@ -1,0 +1,69 @@
+// Apply box-sizing globally
+*,
+*::before,
+*::after {
+    box-sizing: border-box; // Include padding and border in width/height calculations
+}
+
+body {
+    margin: 0; // Remove default body margin
+    overflow-x: hidden; // Prevent horizontal scrolling
+}
+
+/* Global Scrollbar Customization for all scrollable elements */
+:root {
+    --scrollbar-track-color: #f7f7f7; /* Light background color (from $background-color-light) */
+    --scrollbar-thumb-color: #1f72b9; /* Primary color for scrollbar thumb (from $primary-color) */
+    --scrollbar-thumb-hover-color: #000000; /* Secondary color for hover effect (from $secondary-color) */
+}
+/* Applies to all scrollable elements across the website */
+* {
+    /* WebKit Browsers (Chrome, Safari, Edge) */
+    scrollbar-width: thin; /* For Firefox - makes scrollbar thinner */
+    scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color); /* Thumb and track colors */
+
+    /* Scrollbar track */
+    &::-webkit-scrollbar {
+        width: 10px; /* Vertical scrollbar width */
+        height: 10px; /* Horizontal scrollbar height */
+    }
+
+    &::-webkit-scrollbar-track {
+        background: var(--scrollbar-track-color); /* Track background color */
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: var(--scrollbar-thumb-color); /* Thumb color */
+        border-radius: 10px; /* Rounded corners for the thumb */
+        border: 2px solid var(--scrollbar-track-color); /* Padding between thumb and track */
+    }
+
+    /* Hover effect for the scrollbar thumb */
+    &:hover::-webkit-scrollbar-thumb {
+        background-color: var(--scrollbar-thumb-hover-color); /* Thumb color on hover */
+    }
+}
+
+/* Responsive Design for smaller screens (mobile) */
+@media (max-width: #{$breakpoint-mobile}) {
+    * {
+        &::-webkit-scrollbar {
+            width: 8px; /* Thinner scrollbar for mobile screens */
+            height: 8px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            border-radius: 6px; /* Smaller rounding for mobile */
+        }
+    }
+}
+
+/* Responsive Design for larger screens (desktop) */
+@media (min-width: #{$breakpoint-large-desktop}) {
+    * {
+        &::-webkit-scrollbar {
+            width: 12px; /* Slightly wider scrollbar for large screens */
+            height: 12px;
+        }
+    }
+}

@@ -1,0 +1,19 @@
+.home {
+    .services {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+      .service {
+        width: 30%;
+        padding: 15px;
+        background-color: #fff;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+  
+        img {
+          width: 100%;
+          height: auto;
+        }
+      }
+    }
+  }

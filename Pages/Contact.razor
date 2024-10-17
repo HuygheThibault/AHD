@@ -1,0 +1,29 @@
+@page "/contact"
+
+<section id="contact" class="container contact">
+  <h1 class="heading">Contacteer Ons</h1>
+    <div class="contact-form">
+        <EditForm Model="@contactModel" OnValidSubmit="HandleSubmit">
+            <InputText @bind-Value="contactModel.Name" placeholder="Uw Naam" required />
+            <InputText @bind-Value="contactModel.Email" type="email" placeholder="Uw E-mail" required />
+            <InputTextArea @bind-Value="contactModel.Message" placeholder="Uw Bericht" required></InputTextArea>
+            <button type="submit" class="BTN">Verstuur Bericht</button>
+        </EditForm>
+    </div>
+</section>
+
+@code {
+    private ContactModel contactModel = new ContactModel();
+
+    private void HandleSubmit()
+    {
+        // Handle the form submission (e.g., send an email or store in a database)
+    }
+
+    public class ContactModel
+    {
+        public string? Name { get; set; }
+        public string? Email { get; set; }
+        public string? Message { get; set; }
+    }
+}

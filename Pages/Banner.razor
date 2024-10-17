@@ -1,0 +1,17 @@
+﻿<div class="leader-banner">
+    <div class="leader-banner__image">
+        <img src="@LeaderImage" alt="Business Leader" />
+    </div>
+    <div class="leader-banner__content">
+        <h2>@LeaderName</h2>
+        <p>@LeaderTitle</p>
+        <p>@LeaderBio</p>
+    </div>
+</div>
+
+@code {
+    [Parameter] public string LeaderImage { get; set; } = "leader.jpg"; // Placeholder image path
+    [Parameter] public string LeaderName { get; set; } = "John Doe"; // Placeholder name
+    [Parameter] public string LeaderTitle { get; set; } = "CEO & Founder"; // Placeholder title
+    [Parameter] public string LeaderBio { get; set; } = "An inspiring leader with over 20 years of experience in business innovation and technology."; // Placeholder bio
+}

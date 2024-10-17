@@ -1,0 +1,22 @@
+﻿@using AHD.Pages
+@inherits LayoutComponentBase
+<div class="page">
+    <Loading IsLoading="@IsLoading" />
+
+    <NavMenu />
+    <main>
+        @Body
+    </main>
+    <Footer></Footer>
+</div>
+@code {
+    private bool IsLoading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Simulate loading time
+        await Task.Delay(2000); // Replace with actual loading logic
+        IsLoading = false;
+        StateHasChanged();
+    }
+}

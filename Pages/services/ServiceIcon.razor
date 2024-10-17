@@ -1,0 +1,13 @@
+﻿@using AHD.Models
+<div class="service-icon @(IsSelected ? "service-icon--selected" : "")" @onclick="() => OnSelectService.InvokeAsync(Service.Id)">
+    <div class="service-icon__image">
+        <img src="@Service.ImageUrl" alt="@Service.Name" />
+    </div>
+    <p class="service-icon__label">@Service.Name</p>
+</div>
+
+@code {
+    [Parameter] public Service Service { get; set; }
+    [Parameter] public bool IsSelected { get; set; }
+    [Parameter] public EventCallback<int> OnSelectService { get; set; }
+}

@@ -1,0 +1,75 @@
+@page "/realisaties"
+@using Azure.Storage.Blobs
+@using Azure.Storage.Blobs.Models
+@inject IConfiguration Configuration
+
+<section class="container">
+    <InputFile OnChange="@HandleFileSelection" />
+    <button onclick="@UploadImages()">Upload images</button>
+    <button onclick="@DownloadImages()">Download images</button>
+    <button onclick="@DeleteContainers()">delete containers</button>
+    <div class="gallery">
+        @foreach (var imageUrl in _imageUrls)
+        {
+            <img src="@imageUrl" alt="imageUrl">
+        }
+    </div>
+</section>
+
+@code {
+    private BlobServiceClient _blobServiceClient;
+    private BlobContainerClient _containerClient;
+    private List<string> _imageUrls = new List<string>();
+    private IBrowserFile? file;
+    private string? fileContent;
+
+    protected override void OnInitialized()
+    {
+        // _blobServiceClient = new BlobServiceClient(Configuration.GetSection("ConnectionStrings:storageAccount").Value);
+    }
+
+    private void HandleFileSelection(InputFileChangeEventArgs e)
+    {
+        file = e.File;
+    }
+
+
+    private async Task CreateNewContainer()
+    {
+        string containerName = string.Format("Arealisations-{0}", Guid.NewGuid().ToString());
+        _containerClient = await _blobServiceClient.CreateBlobContainerAsync(containerName);
+    }
+
+    private async Task UploadImages()
+    {
+        if (file != null)
+        {
+            await CreateNewContainer();
+            BlobClient blobClient = _containerClient.GetBlobClient(file.Name);
+            using var stream = file.OpenReadStream();
+            await blobClient.UploadAsync(stream);
+        }
+    }
+
+    private async Task DownloadImages()
+    {
+        await foreach (BlobItem blob in _containerClient.GetBlobsAsync())
+        {
+            var blobClient = _containerClient.GetBlobClient(blob.Name);
+            var blobUri = blobClient.Uri.AbsoluteUri;
+            _imageUrls.Add(blobUri);
+        }
+        StateHasChanged();
+    }
+
+    private async Task DeleteContainers()
+    {
+        var containers = _blobServiceClient.GetBlobContainersAsync();
+        await foreach (BlobContainerItem c in containers)
+        {
+            BlobContainerClient containerClient = await _blobServiceClient.CreateBlobContainerAsync(c.Name);
+            await containerClient.DeleteAsync();
+        }
+    }
+
+}
