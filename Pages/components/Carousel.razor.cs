@@ -13,9 +13,7 @@ namespace AHD.Pages.components
         [Parameter] public int ScrollAmount { get; set; } = 200;
 
         private ElementReference carouselListRef;
-        private bool canScrollLeft;
-        private bool canScrollRight;
-        private CancellationTokenSource debounceCancellationTokenSource;
+        private int activeIndex = 0;
 
         protected override void OnParametersSet()
         {
@@ -25,62 +23,44 @@ namespace AHD.Pages.components
             }
         }
 
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            if (firstRender)
-            {
-                await DetectScroll();
-            }
-        }
-
-        private void UpdateScrollStates(ScrollInfo scrollInfo)
-        {
-            canScrollLeft = scrollInfo.CanScrollLeft;
-            canScrollRight = scrollInfo.CanScrollRight;
-            StateHasChanged();
-        }
-
-        private async Task DetectScroll()
-        {
-            var scrollInfo = await JSRuntime.InvokeAsync<ScrollInfo>("blazorDetectScroll", carouselListRef);
-            UpdateScrollStates(scrollInfo);
-        }
-
         private async Task ScrollLeft()
         {
-            await JSRuntime.InvokeVoidAsync("blazorScroll", carouselListRef, -ScrollAmount);
-            DebounceDetectScroll();
+            activeIndex = (activeIndex == 0) ? Items.Count - 1 : activeIndex - 1;
+            await ScrollToActiveIndexAsync();
         }
 
         private async Task ScrollRight()
         {
-            await JSRuntime.InvokeVoidAsync("blazorScroll", carouselListRef, ScrollAmount);
-            DebounceDetectScroll();
+            activeIndex = (activeIndex == Items.Count - 1) ? 0 : activeIndex + 1;
+            await ScrollToActiveIndexAsync();
         }
 
-        private void DebounceDetectScroll()
+        private async Task ScrollToIndex(int index)
         {
-            debounceCancellationTokenSource?.Cancel();
-            debounceCancellationTokenSource = new CancellationTokenSource();
+            activeIndex = index;
+            await ScrollToActiveIndexAsync();
+        }
 
-            _ = Task.Delay(200, debounceCancellationTokenSource.Token).ContinueWith(async t =>
+        private async Task ScrollToActiveIndexAsync()
+        {
+            var scrollPosition = activeIndex * ScrollAmount;
+            await SelectItemAsync(activeIndex);
+            await JSRuntime.InvokeVoidAsync("blazorScrollTo", carouselListRef, scrollPosition);
+        }
+
+        private async Task SelectItemAsync(int index)
+        {
+            activeIndex = index;
+            await OnSelect.InvokeAsync(Items[index]);
+        }
+
+        private async Task SelectItem(TItem item)
+        {
+            var index = Items.IndexOf(item);
+            if (index >= 0)
             {
-                if (!t.IsCanceled)
-                {
-                    await DetectScroll();
-                }
-            });
-        }
-
-        private void SelectItem(TItem item)
-        {
-            OnSelect.InvokeAsync(item);
-        }
-
-        private class ScrollInfo
-        {
-            public bool CanScrollLeft { get; set; }
-            public bool CanScrollRight { get; set; }
+                await SelectItemAsync(index);
+            }
         }
     }
 }

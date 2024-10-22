@@ -289,3 +289,28 @@
         }
     }
 }
+.carousel__indicators {
+    display: flex;
+    justify-content: center;
+    margin-top: 1.5rem;
+    gap: 0.5rem;
+
+    .indicator {
+        width: 12px;
+        height: 12px;
+        background-color: #ccc;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        border: 2px solid transparent;
+
+        &.active {
+            background-color: $primary-color;
+            border-color: $primary-color; // Highlight the active indicator
+        }
+
+        &:hover {
+            background-color: $secondary-color;
+        }
+    }
+}

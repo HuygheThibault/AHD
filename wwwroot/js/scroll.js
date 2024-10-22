@@ -1,6 +1,7 @@
-﻿window.blazorScroll = function (element, scrollAmount) {
-    element.scrollBy({
-        left: scrollAmount,
-        behavior: 'smooth' // Ensures smooth scrolling
+﻿window.blazorScrollTo = (carouselElement, scrollPosition) => {
+    carouselElement.scrollTo({
+        left: scrollPosition,
+        behavior: 'smooth'
     });
 };
+
