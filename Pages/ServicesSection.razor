@@ -1,47 +1,56 @@
-﻿@using AHD.Models
+﻿@page "/services"
+@using AHD.Models
 @using AHD.Pages.services
-@inject IJSRuntime JSRuntime
 
 <section class="services">
-    <div class="container">
-        <div class="scroll-arrows" style="visibility:@(canScrollLeft ? "visible" : "hidden")">
-            <button class="arrow" @onclick="ScrollLeft" aria-label="Scroll Left">
-                <img src="/images/chevron_left.svg" />
-            </button>
-        </div>
+    <Carousel TItem="Service" Items="services" OnSelect="@(service => SelectService(service.Id))">
+        <ItemTemplate Context="service">
+            <ServiceIcon Service="service" IsSelected="@IsSelected(service.Id)"/>
+        </ItemTemplate>
+    </Carousel>
 
-        <div class="services__list @(canScrollLeft || canScrollRight ? "" : "services__list--no-scrollbar")" @ref="serviceListRef">
-            @foreach (var item in Enumerable.Range(1, 10))
-            {
-                <ServiceIcon Service="@services[0]"
-                             IsSelected="@IsSelected(item)"
-                             OnSelectService="SelectService" />
-            }
-        </div>
-
-        <div class="scroll-arrows" style="visibility:@(canScrollRight ? "visible" : "hidden")">
-            <button class="arrow" @onclick="ScrollRight" aria-label="Scroll Right">
-                <img src="/images/chevron_right.svg" />
-            </button>
-        </div>
-    </div>
-
-    <!-- Service Details Section -->
     <ServiceDetails Service="@selectedServiceDetails" />
 </section>
 
-
 @code {
-    private ElementReference serviceListRef;
-    private Service selectedServiceDetails;
-    private int selectedServiceId = 1;
-    private bool canScrollLeft;
-    private bool canScrollRight;
-    private readonly int scrollAmount = 200;
-
     private List<Service> services = new List<Service>
     {
-        new Service(1, "Dakwerken", "/images/construction.svg", "https://www.dakwerken-adviseur.be/wp-content/uploads/2017/10/dakwerken-1.jpg", "e dak speelt een belangrijke rol in de bescherming van je woning. Samen met onze vakmensen zorgen we voor de juiste aanpak van alle dakwerken van dakconstructie over dakbedekking tot dakisolatie zodat jouw dak energie-efficiënt en duurzaam wordt.", new List<Link>
+        new Service(1, "Dakwerken", "/images/construction.svg", "https://www.dakwerken-adviseur.be/wp-content/uploads/2017/10/dakwerken-1.jpg", "e dak speelt een belangrijke rol in de bescherming van je woning...", new List<Link>
+        {
+            new Link("Dakrenovatie", "/Dakwerken/frontend"),
+            new Link("Dakisolatie", "/Dakwerken/backend"),
+            new Link("Asbestverwijdering", "/Dakwerken/fullstack")
+        }),new Service(2, "Dakwerken", "/images/construction.svg", "https://www.dakwerken-adviseur.be/wp-content/", "e dak speelt een belangrijke rol in de bescherming van je woning...", new List<Link>
+        {
+            new Link("Dakrenovatie", "/Dakwerken/frontend"),
+            new Link("Dakisolatie", "/Dakwerken/backend"),
+            new Link("Asbestverwijdering", "/Dakwerken/fullstack")
+        }),new Service(3, "Dakwerken", "/images/construction.svg", "https://www.dakwerken-adviseur.be/wp-content/", "e dak speelt een belangrijke rol in de bescherming van je woning...", new List<Link>
+        {
+            new Link("Dakrenovatie", "/Dakwerken/frontend"),
+            new Link("Dakisolatie", "/Dakwerken/backend"),
+            new Link("Asbestverwijdering", "/Dakwerken/fullstack")
+        }),new Service(4, "Dakwerken", "/images/construction.svg", "https://www.dakwerken-adviseur.be/wp-content/uploads/2017/10/dakwerken-1.jpg", "e dak speelt een belangrijke rol in de bescherming van je woning...", new List<Link>
+        {
+            new Link("Dakrenovatie", "/Dakwerken/frontend"),
+            new Link("Dakisolatie", "/Dakwerken/backend"),
+            new Link("Asbestverwijdering", "/Dakwerken/fullstack")
+        }),new Service(5, "Dakwerken", "/images/construction.svg", "https://www.dakwerken-adviseur.be/wp-content/uploads/2017/10/dakwerken-1.jpg", "e dak speelt een belangrijke rol in de bescherming van je woning...", new List<Link>
+        {
+            new Link("Dakrenovatie", "/Dakwerken/frontend"),
+            new Link("Dakisolatie", "/Dakwerken/backend"),
+            new Link("Asbestverwijdering", "/Dakwerken/fullstack")
+        }),new Service(6, "Dakwerken", "/images/construction.svg", "https://www.dakwerken-adviseur.be/wp-content/uploads/2017/10/dakwerken-1.jpg", "e dak speelt een belangrijke rol in de bescherming van je woning...", new List<Link>
+        {
+            new Link("Dakrenovatie", "/Dakwerken/frontend"),
+            new Link("Dakisolatie", "/Dakwerken/backend"),
+            new Link("Asbestverwijdering", "/Dakwerken/fullstack")
+        }),new Service(7, "Dakwerken", "/images/construction.svg", "https://www.dakwerken-adviseur.be/wp-content/uploads/2017/10/dakwerken-1.jpg", "e dak speelt een belangrijke rol in de bescherming van je woning...", new List<Link>
+        {
+            new Link("Dakrenovatie", "/Dakwerken/frontend"),
+            new Link("Dakisolatie", "/Dakwerken/backend"),
+            new Link("Asbestverwijdering", "/Dakwerken/fullstack")
+        }),new Service(8, "Dakwerken", "/images/construction.svg", "https://www.dakwerken-adviseur.be/wp-content/uploads/2017/10/dakwerken-1.jpg", "e dak speelt een belangrijke rol in de bescherming van je woning...", new List<Link>
         {
             new Link("Dakrenovatie", "/Dakwerken/frontend"),
             new Link("Dakisolatie", "/Dakwerken/backend"),
@@ -49,48 +58,19 @@
         })
     };
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await DetectScroll();
-        }
-    }
+    private Service selectedServiceDetails;
+    private int selectedServiceId = 1;
 
-    private async Task DetectScroll()
+    protected override void OnInitialized()
     {
-        var scrollInfo = await JSRuntime.InvokeAsync<ScrollInfo>("blazorDetectScroll", serviceListRef);
-        canScrollLeft = scrollInfo.CanScrollLeft;
-        canScrollRight = scrollInfo.CanScrollRight;
-
-        StateHasChanged(); // Update the UI after scroll detection
-    }
-
-    private async Task ScrollLeft()
-    {
-        // Scroll the service list left by 'scrollAmount' pixels
-        await JSRuntime.InvokeVoidAsync("blazorScroll", serviceListRef, -scrollAmount);
-        await DetectScroll(); // Check the scroll position after scrolling
-    }
-
-    private async Task ScrollRight()
-    {
-        // Scroll the service list right by 'scrollAmount' pixels
-        await JSRuntime.InvokeVoidAsync("blazorScroll", serviceListRef, scrollAmount);
-        await DetectScroll(); // Check the scroll position after scrolling
+        SelectService(selectedServiceId);
     }
 
     private void SelectService(int serviceId)
     {
         selectedServiceId = serviceId;
-        selectedServiceDetails = services.FirstOrDefault(s => s.Id == serviceId);
+        selectedServiceDetails = services?.FirstOrDefault(s => s.Id == serviceId);
     }
 
     private bool IsSelected(int serviceId) => serviceId == selectedServiceId;
-
-    private class ScrollInfo
-    {
-        public bool CanScrollLeft { get; set; }
-        public bool CanScrollRight { get; set; }
-    }
-    }
+}

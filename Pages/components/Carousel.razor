@@ -1,0 +1,24 @@
+﻿@typeparam TItem
+
+<div class="container">
+    <div class="scroll-arrows @(canScrollLeft ? "active" : "inactive")" aria-hidden="@(canScrollLeft ? "false" : "true")">
+        <button class="arrow" @onclick="ScrollLeft" aria-label="Scroll Left" tabindex="0">
+            <img src="/images/chevron_left.svg" alt="Scroll left" />
+        </button>
+    </div>
+
+    <div class="services__list @(canScrollLeft || canScrollRight ? "" : "services__list--no-scrollbar")" @ref="carouselListRef">
+        @foreach (var item in Items)
+        {
+            <div @onclick="@(() => SelectItem(item))">
+                @ItemTemplate(item)
+            </div>
+        }
+    </div>
+
+    <div class="scroll-arrows @(canScrollRight ? "active" : "inactive")" aria-hidden="@(canScrollRight ? "false" : "true")">
+        <button class="arrow" @onclick="ScrollRight" aria-label="Scroll Right" tabindex="0">
+            <img src="/images/chevron_right.svg" alt="Scroll right" />
+        </button>
+    </div>
+</div>
