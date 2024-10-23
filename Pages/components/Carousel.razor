@@ -13,7 +13,7 @@
     <div class="carousel__track" @ref="carouselListRef">
         @foreach (var item in Items)
         {
-            <div class="carousel__slide" @onclick="@(() => SelectItem(item))">
+            <div @key="item" class="carousel__slide" @onclick="@(() => SelectItem(item))">
                 @ItemTemplate(item)
             </div>
         }
@@ -34,7 +34,7 @@
             @for (int i = 0; i < Items.Count; i++)
             {
                 var index = i;
-                <button class="carousel__indicator @(index == activeIndex ? "carousel__indicator--active" : "")"
+                <button @key="index" class="carousel__indicator @(index == activeIndex ? "carousel__indicator--active" : "")"
                         @onclick="() => ScrollToIndex(index)"
                         aria-label="Scroll to item @index">
                 </button>
