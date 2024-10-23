@@ -1,0 +1,124 @@
+.carousel {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1rem 0;
+    position: relative;
+
+    &__track {
+        display: flex;
+        justify-content: center;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        gap: 1rem;
+        scroll-padding-left: 1rem;
+    }
+
+    &__slide {
+        flex: 0 0 auto;
+        scroll-snap-align: start;
+        background-color: $white-color;
+        border-radius: 12px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: transform 0.2s ease-in-out;
+
+        &:hover {
+            transform: translateY(-5px);
+        }
+
+        &__image {
+            width: 90px;
+            height: 90px;
+            margin-bottom: 1.25rem;
+            border-radius: 50%;
+
+            img, svg {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+
+        &__label {
+            font-size: 1rem;
+            font-weight: bold;
+            color: $primary-color;
+            transition: color 0.3s ease;
+
+            &:hover {
+                color: $secondary-color;
+            }
+        }
+
+        &--selected {
+            background-color: $primary-color;
+
+            .carousel__slide__label {
+                color: $white-color;
+            }
+        }
+    }
+
+    &__arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 10;
+
+        &--left {
+            left: 0;
+        }
+
+        &--right {
+            right: 0;
+        }
+
+        .carousel__button {
+            @include button-style(45px);
+            background-color: $primary-color;
+            color: $white-color;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+            &:hover {
+                background-color: $secondary-color;
+                transform: scale(1.1);
+            }
+
+            svg {
+                width: 60%;
+                height: 60%;
+            }
+        }
+    }
+
+    &__indicators {
+        display: flex;
+        justify-content: center;
+        margin-top: 1.5rem;
+        gap: 0.75rem;
+
+        .carousel__indicator {
+            width: 14px;
+            height: 14px;
+            background-color: #ddd;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+
+            &--active {
+                background-color: $primary-color;
+            }
+
+            &:hover {
+                background-color: $secondary-color;
+            }
+        }
+    }
+}

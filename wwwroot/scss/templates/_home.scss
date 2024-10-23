@@ -1,4 +1,4 @@
-.home {
+/*.home {
     .services {
       display: flex;
       justify-content: space-between;
@@ -16,4 +16,12 @@
         }
       }
     }
-  }
+  }*/
+
+.home {
+    padding: 3rem 1rem;
+
+    .services-section {
+        margin-top: 4rem; // Adjust spacing for the section in the home layout
+    }
+}

@@ -1,19 +1,19 @@
 ﻿@typeparam TItem
 
-<div class="container">
+<div class="carousel">
     @if (Items != null && Items.Count > 1)
     {
-        <div class="scroll-arrows">
-            <button class="arrow" @onclick="ScrollLeft" aria-label="Scroll Left" tabindex="0">
+        <div class="carousel__arrow carousel__arrow--left">
+            <button class="carousel__button" @onclick="ScrollLeft" aria-label="Scroll Left" tabindex="0">
                 <img src="/images/chevron_left.svg" alt="Scroll left" />
             </button>
         </div>
     }
 
-    <div class="services__list" @ref="carouselListRef">
+    <div class="carousel__track" @ref="carouselListRef">
         @foreach (var item in Items)
         {
-            <div @onclick="@(() => SelectItem(item))">
+            <div class="carousel__slide" @onclick="@(() => SelectItem(item))">
                 @ItemTemplate(item)
             </div>
         }
@@ -21,21 +21,25 @@
 
     @if (Items != null && Items.Count > 1)
     {
-        <div class="scroll-arrows">
-            <button class="arrow" @onclick="ScrollRight" aria-label="Scroll Right" tabindex="0">
+        <div class="carousel__arrow carousel__arrow--right">
+            <button class="carousel__button" @onclick="ScrollRight" aria-label="Scroll Right" tabindex="0">
                 <img src="/images/chevron_right.svg" alt="Scroll right" />
             </button>
         </div>
     }
+
+    @if (Items != null && Items.Count > 1)
+    {
+        <div class="carousel__indicators">
+            @for (int i = 0; i < Items.Count; i++)
+            {
+                var index = i;
+                <button class="carousel__indicator @(index == activeIndex ? "carousel__indicator--active" : "")"
+                        @onclick="() => ScrollToIndex(index)"
+                        aria-label="Scroll to item @index">
+                </button>
+            }
+        </div>
+    }
 </div>
 
-@if (Items != null && Items.Count > 1)
-{
-    <div class="carousel__indicators">
-        @for (int i = 0; i < Items.Count; i++)
-        {
-            var index = i;
-            <button class="indicator @(index == activeIndex ? "active" : "")" @onclick="() => ScrollToIndex(index)" aria-label="Scroll to item @index"></button>
-        }
-    </div>
-}

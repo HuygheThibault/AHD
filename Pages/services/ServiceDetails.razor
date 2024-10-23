@@ -1,17 +1,17 @@
 ﻿@using AHD.Models
 @if (Service != null)
 {
-    <div class="services__details">
-        <div class="details__image">
+    <div class="service-details">
+        <div class="service-details__image">
             <img src="@Service.DetailsImageUrl" alt="@Service.Name" />
         </div>
-        <div class="details__content">
-            <h4>@Service.Name</h4>
-            <p>@Service.Description</p>
-            <div class="details__links">
+        <div class="service-details__content">
+            <h4 class="service-details__title">@Service.Name</h4>
+            <p class="service-details__description">@Service.Description</p>
+            <div class="service-details__links">
                 @foreach (var link in Service.Links)
                 {
-                    <a class="details__link" href="@link.Url">@link.Text</a>
+                    <a class="service-details__link" href="@link.Url">@link.Text</a>
                 }
             </div>
         </div>

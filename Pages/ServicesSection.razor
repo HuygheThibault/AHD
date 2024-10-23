@@ -2,10 +2,10 @@
 @using AHD.Models
 @using AHD.Pages.services
 
-<section class="services">
+<section class="service-section">
     <Carousel TItem="Service" Items="services" OnSelect="@(service => SelectService(service.Id))">
         <ItemTemplate Context="service">
-            <ServiceIcon Service="service" IsSelected="@IsSelected(service.Id)"/>
+            <ServiceIcon Service="service" IsSelected="@IsSelected(service.Id)" />
         </ItemTemplate>
     </Carousel>
 
