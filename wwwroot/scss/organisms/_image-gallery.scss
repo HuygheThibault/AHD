@@ -4,8 +4,8 @@
 // Gallery Styling
 .image-gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); // Increase min size for better spacing
+    gap: 16px; // Space between items
     padding: 20px;
     opacity: 0;
     animation: fadeIn 0.8s forwards;
@@ -13,18 +13,19 @@
     &__item {
         position: relative;
         overflow: hidden;
-        cursor: pointer;
         border-radius: 12px;
-        transition: transform 0.3s ease;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); // Subtle shadow for depth
+        transition: transform 0.3s ease, box-shadow 0.3s ease; // Smooth transition
 
         &:hover {
-            transform: scale(1.03);
+            transform: scale(1.05); // Slightly increase scale for emphasis
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); // Enhanced shadow on hover
         }
 
         img {
             width: 100%;
-            height: auto;
-            object-fit: cover;
+            height: 100%; // Make sure images fill the container
+            object-fit: cover; // Maintain aspect ratio
             border-radius: 12px;
             transition: transform 0.3s ease;
         }
@@ -55,11 +56,22 @@
             align-items: center;
             justify-content: space-between;
             overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); // Shadow for modal content
 
             .close {
                 position: absolute;
-                top: 1rem;
-                right: 0;
+                top: 0rem;
+                right: 0rem;
+                cursor: pointer;
+                background: rgba($white-color, 0.7); // Semi-transparent background for close button
+                border-radius: 50%;
+                padding: 0.5rem;
+                transition: background 0.3s;
+
+                &:hover {
+                    background: rgba($white-color, 1); // Full opacity on hover
+                }
             }
 
             .modal-image-container {
@@ -67,7 +79,7 @@
                 align-items: center;
                 justify-content: center;
                 max-height: 100%;
-                max-width: 80%;
+                max-width: 100%;
                 margin: 0 auto;
 
                 .modal-image {
@@ -78,35 +90,6 @@
                     transition: transform 0.5s ease;
                 }
             }
-            /*.nav-button {
-                background: rgba($dark-color, 0.6);
-                color: $white-color;
-                border: none;
-                font-size: 1.5rem;
-                padding: 12px;
-                border-radius: 50%;
-                cursor: pointer;
-                transition: background 0.3s ease, transform 0.3s ease;
-
-                &.left {
-                    position: absolute;
-                    left: 15px;
-                }
-
-                &.right {
-                    position: absolute;
-                    right: 15px;
-                }
-
-                &:hover {
-                    background: rgba($dark-color, 0.8);
-                    transform: scale(1.1);
-                }
-
-                &:focus {
-                    outline: none;
-                }
-            }*/
         }
     }
     // Fade-in effect for the gallery
@@ -123,11 +106,10 @@
     }
     // Responsive adjustments for various breakpoints
     @media (max-width: $breakpoint-tablet) {
+        padding: 10px; // Reduce padding on smaller screens
+
         .image-gallery__modal-content {
             padding: 10px;
-            /*            .nav-button {
-                padding: 10px;
-            }*/
 
             .modal-image-container {
                 max-width: 90%;
@@ -139,9 +121,6 @@
         .image-gallery__modal-content {
             width: 100%;
             padding: 5px;
-            /*  .nav-button {
-                padding: 8px;
-            }*/
 
             .modal-image-container {
                 max-width: 100%;

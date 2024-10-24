@@ -15,11 +15,11 @@
     <div class="image-gallery__modal" @onkeydown="HandleKeyPress" tabindex="0" role="dialog" aria-modal="true">
         <div class="image-gallery__modal-content">
             <button class="arrow-button close" @onclick="CloseModal" aria-label="Close">&times;</button>
-            <button class="arrow-button" @onclick="PreviousImage" aria-label="Previous">&#9664;</button>
+            <button class="arrow-button" @onclick="PreviousImage" aria-label="Previous" disabled="@(!CanGoToPrevious)">&lt;</button>
             <div class="modal-image-container">
                 <img src="@SelectedImage" alt="Full-Size Image" class="modal-image" />
             </div>
-            <button class="arrow-button" @onclick="NextImage" aria-label="Next">&#9654;</button>
+            <button class="arrow-button" @onclick="NextImage" aria-label="Next" disabled="@(!CanGoToNext)">&gt;</button>
         </div>
     </div>
 }
@@ -30,6 +30,10 @@
     private bool IsModalOpen { get; set; }
     private string SelectedImage { get; set; }
     private int SelectedImageIndex { get; set; }
+
+    // Calculate if can go to previous or next image
+    private bool CanGoToPrevious => SelectedImageIndex > 0;
+    private bool CanGoToNext => SelectedImageIndex < ImageUrls.Count - 1;
 
     // Method to open modal with the selected image
     private async Task OpenModal(string imageUrl)
@@ -46,7 +50,7 @@
 
     private void PreviousImage()
     {
-        if (SelectedImageIndex > 0)
+        if (CanGoToPrevious)
         {
             SelectedImageIndex--;
             SelectedImage = ImageUrls[SelectedImageIndex];
@@ -55,7 +59,7 @@
 
     private void NextImage()
     {
-        if (SelectedImageIndex < ImageUrls.Count - 1)
+        if (CanGoToNext)
         {
             SelectedImageIndex++;
             SelectedImage = ImageUrls[SelectedImageIndex];

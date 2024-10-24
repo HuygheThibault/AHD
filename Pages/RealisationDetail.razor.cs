@@ -12,13 +12,16 @@ namespace AHD.Pages
 
         public string SelectedImg { get; set; }
 
-        public string BaseImgUrl { get; set; } = "https://loremflickr.com/200/200?random=";
+        public string BaseImgUrl { get; set; }
 
         protected override void OnInitialized()
         {
+            Random randomNumber = new Random();
+
             var imageUrls = new List<string>();
             for (int i = 1; i <= 50; i++)
             {
+                BaseImgUrl = $"https://loremflickr.com/{randomNumber.Next(200, 700)}/{randomNumber.Next(200, 700)}?random=";
                 imageUrls.Add($"{BaseImgUrl}{i}");
             }
             Realisation = new Realisation(1, "Test", "Test description", imageUrls[0], imageUrls);
