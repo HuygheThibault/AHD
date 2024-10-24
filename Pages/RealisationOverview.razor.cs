@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace AHD.Pages
 {
-    public partial class Realisations
+    public partial class RealisationOverview
     {
         static string img = "https://www.dakwerken-adviseur.be/wp-content/uploads/2017/10/dakwerken-1.jpg";
         private List<Realisation> RealisationsList = new List<Realisation>

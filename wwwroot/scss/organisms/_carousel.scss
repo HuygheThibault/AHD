@@ -8,6 +8,7 @@
     padding: 1rem 0;
     margin: 0 1rem;
     background-color: $background-color-light;
+    align-items: center;
 
     &__track {
         display: flex;
@@ -74,8 +75,7 @@
             color: $white-color;
         }
     }
-
-    &__arrow {
+    /*&__arrow {
         align-self: center;
         width: 2rem;
         height: 2rem;
@@ -108,7 +108,7 @@
                 height: 50%;
             }
         }
-    }
+    }*/
 
     &__indicators {
         display: flex;
@@ -149,11 +149,10 @@
                 font-size: 0.85rem;
             }
         }
-
-        .carousel__arrow {
+        /*.carousel__arrow {
             width: 2rem;
             height: 2rem;
-        }
+        }*/
 
         &__indicators {
             gap: 0.25rem;
@@ -169,10 +168,9 @@
                 height: 7rem;
             }
         }
-
-        .carousel__arrow {
+        /*.carousel__arrow {
             width: 3rem;
             height: 3rem;
-        }
+        }*/
     }
 }

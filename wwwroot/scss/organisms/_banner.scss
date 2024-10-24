@@ -1,4 +1,4 @@
-.leader-banner {
+.banner {
     display: flex;
     align-items: center; // Vertically center the image and text together
     justify-content: center; // Horizontally center content inside the banner
@@ -7,11 +7,6 @@
     border-radius: 16px;
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
     transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-
-    &:hover {
-        transform: translateY(-5px); // Slight hover effect to lift the element
-        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15); // Increased shadow on hover for more depth
-    }
 
     &__image {
         flex: 0 0 150px; // Fix width for the image
@@ -27,10 +22,6 @@
             object-fit: cover;
             border-radius: 50%; // Ensure circular shape
             transition: transform 0.3s ease;
-
-            &:hover {
-                transform: scale(1.05); // Slight zoom on hover
-            }
         }
     }
 
@@ -60,7 +51,7 @@
             color: $text-color; // Standard text color
             margin: 0;
 
-            &:first-of-type {
+            .sub-title {
                 font-size: 1.125rem;
                 font-weight: 500;
                 color: $primary-color; // Primary color for title

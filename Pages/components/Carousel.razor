@@ -3,11 +3,13 @@
 <div class="carousel">
     @if (Items != null && Items.Count > 1)
     {
-        <div class="carousel__arrow carousel__arrow--left">
+       @*  <div class="carousel__arrow carousel__arrow--left">
             <button class="carousel__button" @onclick="ScrollLeft" aria-label="Scroll Left" tabindex="0">
                 <img src="/images/chevron_left.svg" alt="Scroll left" />
             </button>
-        </div>
+        </div> *@
+        <button class="arrow-button" @onclick="ScrollLeft" aria-label="Previous">&#9664;</button>
+
     }
 
     <div class="carousel__track" @ref="carouselListRef">
@@ -21,11 +23,13 @@
 
     @if (Items != null && Items.Count > 1)
     {
-        <div class="carousel__arrow carousel__arrow--right">
+       @*  <div class="carousel__arrow carousel__arrow--right">
             <button class="carousel__button" @onclick="ScrollRight" aria-label="Scroll Right" tabindex="0">
                 <img src="/images/chevron_right.svg" alt="Scroll right" />
             </button>
-        </div>
+        </div> *@
+        <button class="arrow-button" @onclick="ScrollRight" aria-label="Next">&#9654;</button>
+
     }
 
     @if (Items != null && Items.Count > 1)

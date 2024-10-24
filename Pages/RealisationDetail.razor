@@ -1,0 +1,22 @@
+﻿@page "/realisation/{RealisationId}"
+
+@if (Realisation != null)
+{
+    <HeroSection ImageUrl="@Realisation.MainImageUrl" Title="@Realisation.Name" style="height:25vh !important" />
+    <Banner Title="@Realisation.Name" Text="@Realisation.Description" />
+    <ImageGallery ImageUrls="Realisation.ImageUrls" />
+
+    <section class="realisation-detail">
+        <Carousel TItem="string" Items="Realisation.ImageUrls" OnSelect="@(image => SelectImg(image))">
+            <ItemTemplate Context="image">
+                <div class="@(IsSelected(image) ? "selected" : "")">
+                    <img src="@image" alt="@Realisation.Name" />
+                </div>
+            </ItemTemplate>
+        </Carousel>
+
+        <div class="realisation-detail__content">
+            <p></p>
+        </div>
+    </section>
+}

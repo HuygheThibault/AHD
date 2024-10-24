@@ -1,0 +1,83 @@
+﻿@using Microsoft.AspNetCore.Components
+@using Microsoft.AspNetCore.Components.Web
+
+<div class="image-gallery">
+    @foreach (var image in ImageUrls)
+    {
+        <div class="image-gallery__item" @onclick="() => OpenModal(image)">
+            <img src="@image" alt="Gallery Image" class="image-gallery__thumbnail" />
+        </div>
+    }
+</div>
+
+@if (IsModalOpen)
+{
+    <div class="image-gallery__modal" @onkeydown="HandleKeyPress" tabindex="0" role="dialog" aria-modal="true">
+        <div class="image-gallery__modal-content">
+            <button class="arrow-button close" @onclick="CloseModal" aria-label="Close">&times;</button>
+            <button class="arrow-button" @onclick="PreviousImage" aria-label="Previous">&#9664;</button>
+            <div class="modal-image-container">
+                <img src="@SelectedImage" alt="Full-Size Image" class="modal-image" />
+            </div>
+            <button class="arrow-button" @onclick="NextImage" aria-label="Next">&#9654;</button>
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public List<string> ImageUrls { get; set; }
+
+    private bool IsModalOpen { get; set; }
+    private string SelectedImage { get; set; }
+    private int SelectedImageIndex { get; set; }
+
+    // Method to open modal with the selected image
+    private async Task OpenModal(string imageUrl)
+    {
+        SelectedImageIndex = ImageUrls.IndexOf(imageUrl);
+        SelectedImage = imageUrl;
+        IsModalOpen = true;
+    }
+
+    private void CloseModal()
+    {
+        IsModalOpen = false;
+    }
+
+    private void PreviousImage()
+    {
+        if (SelectedImageIndex > 0)
+        {
+            SelectedImageIndex--;
+            SelectedImage = ImageUrls[SelectedImageIndex];
+        }
+    }
+
+    private void NextImage()
+    {
+        if (SelectedImageIndex < ImageUrls.Count - 1)
+        {
+            SelectedImageIndex++;
+            SelectedImage = ImageUrls[SelectedImageIndex];
+        }
+    }
+
+    private void HandleKeyPress(KeyboardEventArgs e)
+    {
+        if (IsModalOpen)
+        {
+            switch (e.Key)
+            {
+                case "Escape":
+                    CloseModal();
+                    break;
+                case "ArrowLeft":
+                    PreviousImage();
+                    break;
+                case "ArrowRight":
+                    NextImage();
+                    break;
+            }
+        }
+    }
+}

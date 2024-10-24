@@ -13,7 +13,7 @@ namespace AHD.Pages.components
 
         private void NavigateToDetail()
         {
-            NavigationManager.NavigateTo($"/realisations/{Realisation.Id}");
+            NavigationManager.NavigateTo($"/realisation/{Realisation.Id}");
         }
     }
 }

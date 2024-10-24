@@ -1,0 +1,13 @@
+@page "/Realisations"
+
+<HeroSection style="height:25vh !important" />
+<Banner Title="Our realisations" Text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque vitae nisi condimentum, efficitur tellus quis, interdum nibh. Sed pretium ligula id urna ullamcorper, vitae egestas turpis dictum. Integer enim orci, aliquam quis orci non, aliquam euismod sapien. Nulla iaculis porttitor tristique. Vestibulum eget dui sit amet libero varius faucibus. Sed ultricies tellus eu est posuere congue a eget risus. Aliquam justo justo, sagittis vel fermentum et, pharetra quis orci." />
+<section class="realisations-section">
+    @if (RealisationsList != null && RealisationsList.Count > 0)
+    {
+        foreach (Realisation realisation in RealisationsList)
+        {
+            <RealisationCard Realisation="realisation" />
+        }
+    }
+</section>
