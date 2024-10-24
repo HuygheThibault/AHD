@@ -1,22 +1,44 @@
-﻿<section class="hero">
+﻿<section class="hero" @attributes=SectionAttributes aria-labelledby="hero-title" aria-describedby="hero-description">
     <div class="hero__image">
         <div class="bg-wrapper" aria-hidden="true">
             <picture>
-                <source media="(max-width: 600px)" srcset="@img">
-                <source media="(min-width: 601px)" srcset="@img">
-                <img src="@img" alt="A beautiful roof">
+                <source media="(max-width: 600px)" srcset="@ImageUrl">
+                <source media="(min-width: 601px)" srcset="@ImageUrl">
+                <img src="@ImageUrl" alt="@Title">
             </picture>
         </div>
     </div>
-    <div class="hero__content">
-        <div class="hero__content__inner">
-            <h1 class="hero__title">Engineering and Automation Excellence</h1>
-            <p class="hero__description">We provide specialized engineering solutions to optimize your business.</p>
-            <Button>Contact</Button>
-        </div>
-    </div>
+    @if (!string.IsNullOrEmpty(Title))
+    {
+        <header class="hero__content">
+            <div class="hero__content__inner">
+                <h1 class="hero__title">@Title</h1>
+                @if (!string.IsNullOrEmpty(SubTitle))
+                {
+                    <p class="hero__description">@SubTitle</p>
+                }
+                @if (ChildContent != null)
+                {
+                    @ChildContent
+                }
+            </div>
+        </header>
+    }
 </section>
 
 @code {
-    string img = "https://www.tennessean.com/gcdn/presto/2019/10/11/PNAS/adf1101a-0f8c-404f-9df3-5837bf387dfd-1_Exterior_House_Beautiful_Whole_Home_Concept_House_Castle_Homes_Photo_Reed_Brown_Photography.jpg?crop=5619,3161,x0,y104&width=3200&height=1801&format=pjpg&auto=webp";
+    [Parameter]
+    public string ImageUrl { get; set; } = "https://www.tennessean.com/gcdn/presto/2019/10/11/PNAS/adf1101a-0f8c-404f-9df3-5837bf387dfd-1_Exterior_House_Beautiful_Whole_Home_Concept_House_Castle_Homes_Photo_Reed_Brown_Photography.jpg?crop=5619,3161,x0,y104&width=3200&height=1801&format=pjpg&auto=webp";
+
+    [Parameter]
+    public string Title { get; set; } = string.Empty;
+
+    [Parameter]
+    public string SubTitle { get; set; } = string.Empty;
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object> SectionAttributes { get; set; } = new();
+
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
 }

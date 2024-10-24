@@ -1,15 +1,13 @@
 @page "/Realisations"
 
+<HeroSection Title="Realisations" style="height:25vh !important"/>
+
 <section class="realisations-section">
     @if (RealisationsList != null && RealisationsList.Count > 0)
     {
         foreach (Realisation realisation in RealisationsList)
         {
-            <div @key="realisation" @onclick="() => NavigateToDetail(realisation.Id)">
-                <img src="@realisation.MainImageUrl" alt="@realisation.Name" />
-                <h3>@realisation.Name</h3>
-                <p>@realisation.Description</p>
-            </div>
+            <RealisationCard Realisation="realisation" />
         }
     }
 </section>

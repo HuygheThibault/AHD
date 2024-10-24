@@ -1,0 +1,77 @@
+@use 'sass:color';
+
+.realisation-card {
+    background-color: $white-color; // Light background for contrast
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column; // Stack the image on top
+    transition: transform 0.3s, box-shadow 0.3s;
+    overflow: hidden;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    &__image {
+        width: 100%; // Full width for the image
+        img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            transition: transform 0.3s;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+
+            &:hover {
+                transform: scale(1.05); // Slight zoom effect on hover
+            }
+        }
+    }
+
+    &__content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center; // Center content vertically
+        padding: 1.5rem;
+        background-color: $background-color-light; // Light background for contrast
+    }
+
+    &__title {
+        font-size: clamp(1.75rem, 3vw, 2.25rem);
+        margin-bottom: 0.5rem; // Reduced space for a tighter layout
+        color: $heading-color; // Clearer heading color
+    }
+
+    &__description {
+        font-size: 1.125rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.7;
+        color: $text-color; // Use standard text color for better readability
+    }
+
+    &__button {
+        padding: 0.75rem 1.5rem;
+        font-size: 1rem;
+        background-color: $primary-color;
+        color: $white-color;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        &:hover {
+            background-color: darken($primary-color, 10%); // Darken on hover
+        }
+
+        &:focus {
+            outline: none; // Remove default focus outline
+            box-shadow: 0 0 0 2px rgba($primary-color, 0.5); // Custom focus ring
+        }
+    }
+
+    @media (max-width: $breakpoint-mobile) {
+        flex-direction: column;
+    }
+}

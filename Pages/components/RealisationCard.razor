@@ -1,0 +1,10 @@
+﻿<div class="realisation-card">
+    <div class="realisation-card__image">
+        <img src="@Realisation.MainImageUrl" alt="@Realisation.Name" />
+    </div>
+    <div class="realisation-card__content">
+        <h5 class="realisation-card__title">@Realisation.Name</h5>
+        <p class="realisation-card__description">@Realisation.Description</p>
+        <button class="realisation-card__button" @onclick="() => NavigateToDetail()">Read More</button>
+    </div>
+</div>

@@ -1,18 +1,18 @@
 .navbar {
-    width: 100vw; // Use viewport width to prevent overflow
-    position: fixed;
+    width: 100%; // Use viewport width to prevent overflow
+    /*position: fixed;*/
     top: 0;
     background-color: $white-color;
     z-index: 1000;
     border-bottom: 1px solid #ddd;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease; // Smooth background transition
+    height: $navbar-height;
 
     &__container {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0.5rem 1rem; // Adjusted padding
     }
 
     &__logo a {
@@ -20,7 +20,7 @@
         align-items: center;
 
         img {
-            height: 50px;
+            height: $navbar-height;
             transition: transform 0.3s ease;
         }
 

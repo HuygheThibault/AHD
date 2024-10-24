@@ -5,9 +5,6 @@ namespace AHD.Pages
 {
     public partial class Realisations
     {
-        [Inject]
-        public NavigationManager NavigationManager { get; set; }
-
         static string img = "https://www.dakwerken-adviseur.be/wp-content/uploads/2017/10/dakwerken-1.jpg";
         private List<Realisation> RealisationsList = new List<Realisation>
         {
@@ -18,9 +15,6 @@ namespace AHD.Pages
             new Realisation(5, "Test", "Test description", img, [img])
         };
 
-        private void NavigateToDetail(int id)
-        {
-            NavigationManager.NavigateTo($"/realisations/{id}");
-        }
+       
     }
 }
